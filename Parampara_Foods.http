@@ -1,0 +1,6 @@
+@Parampara_Foods_HostAddress = http://localhost:5123
+
+GET {{Parampara_Foods_HostAddress}}/weatherforecast/
+Accept: application/json
+
+###
