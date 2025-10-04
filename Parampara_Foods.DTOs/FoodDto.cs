@@ -20,7 +20,8 @@
         public bool IsAvailable { get; set; }
         public bool IsOrganic { get; set; }
         public int StockQuantity { get; set; }
-        public string? ImageUrl { get; set; }
+        public string? ImageUrl { get; set; } // Keep for backward compatibility
+        public List<FoodImageDto> Images { get; set; } = new List<FoodImageDto>();
         
         // Additional Details
         public string? Brand { get; set; }

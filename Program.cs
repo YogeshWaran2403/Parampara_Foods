@@ -108,6 +108,12 @@ using (var scope = app.Services.CreateScope())
         
         // Update sample prices with enhanced pricing system
         await Parampara_Foods.UpdateSamplePrices.UpdateAsync(context);
+        
+        // Seed comprehensive data (orders, feedback, blogs, additional users)
+        await Parampara_Foods.ComprehensiveSeedData.SeedComprehensiveDataAsync(context, userManager);
+        
+        // Seed food images
+        await Parampara_Foods.SeedFoodImages.SeedAsync(context);
     }
     catch (Exception ex)
     {

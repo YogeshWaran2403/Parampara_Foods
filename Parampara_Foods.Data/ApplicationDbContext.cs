@@ -14,6 +14,7 @@ namespace Parampara_Foods.Data
         // DbSets for our models
         public DbSet<FoodCategory> Categories { get; set; }
         public DbSet<FoodItem> FoodItems { get; set; }
+        public DbSet<FoodImage> FoodImages { get; set; }
         public DbSet<Order> Orders { get; set; }
         public DbSet<OrderItem> OrderItems { get; set; }
         public DbSet<DeliveryStatusHistory> DeliveryStatusHistory { get; set; }
@@ -30,6 +31,12 @@ namespace Parampara_Foods.Data
                 .WithMany(c => c.FoodItems)
                 .HasForeignKey(f => f.CategoryId)
                 .OnDelete(DeleteBehavior.Restrict);
+
+            builder.Entity<FoodImage>()
+                .HasOne(fi => fi.FoodItem)
+                .WithMany(f => f.Images)
+                .HasForeignKey(fi => fi.FoodId)
+                .OnDelete(DeleteBehavior.Cascade);
 
             builder.Entity<Order>()
                 .HasOne(o => o.User)

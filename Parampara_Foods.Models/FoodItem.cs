@@ -67,5 +67,6 @@ namespace Parampara_Foods.Models
 
         // Navigation properties
         public virtual ICollection<OrderItem> OrderItems { get; set; } = new List<OrderItem>();
+        public virtual ICollection<FoodImage> Images { get; set; } = new List<FoodImage>();
     }
 }

@@ -12,8 +12,8 @@ using Parampara_Foods.Data;
 namespace Parampara_Foods.Migrations
 {
     [DbContext(typeof(ApplicationDbContext))]
-    [Migration("20251002151522_AddWishlistAndOffers")]
-    partial class AddWishlistAndOffers
+    [Migration("20251003190604_AddFoodImages")]
+    partial class AddFoodImages
     {
         /// <inheritdoc />
         protected override void BuildTargetModel(ModelBuilder modelBuilder)
@@ -365,6 +365,41 @@ namespace Parampara_Foods.Migrations
                     b.ToTable("Categories");
                 });
 
+            modelBuilder.Entity("Parampara_Foods.Models.FoodImage", b =>
+                {
+                    b.Property<int>("ImageId")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("ImageId"));
+
+                    b.Property<string>("AltText")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<DateTime>("CreatedAt")
+                        .HasColumnType("datetime2");
+
+                    b.Property<int>("DisplayOrder")
+                        .HasColumnType("int");
+
+                    b.Property<int>("FoodId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("ImageUrl")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<bool>("IsPrimary")
+                        .HasColumnType("bit");
+
+                    b.HasKey("ImageId");
+
+                    b.HasIndex("FoodId");
+
+                    b.ToTable("FoodImages");
+                });
+
             modelBuilder.Entity("Parampara_Foods.Models.FoodItem", b =>
                 {
                     b.Property<int>("FoodId")
@@ -605,6 +640,17 @@ namespace Parampara_Foods.Migrations
                     b.Navigation("User");
                 });
 
+            modelBuilder.Entity("Parampara_Foods.Models.FoodImage", b =>
+                {
+                    b.HasOne("Parampara_Foods.Models.FoodItem", "FoodItem")
+                        .WithMany("Images")
+                        .HasForeignKey("FoodId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("FoodItem");
+                });
+
             modelBuilder.Entity("Parampara_Foods.Models.FoodItem", b =>
                 {
                     b.HasOne("Parampara_Foods.Models.FoodCategory", "Category")
@@ -666,6 +712,8 @@ namespace Parampara_Foods.Migrations
 
             modelBuilder.Entity("Parampara_Foods.Models.FoodItem", b =>
                 {
+                    b.Navigation("Images");
+
                     b.Navigation("OrderItems");
                 });
 
