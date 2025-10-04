@@ -247,5 +247,73 @@ namespace Parampara_Foods.Controllers
             await _context.SaveChangesAsync();
             return NoContent();
         }
+
+        // GET: api/foods/search?q={query}
+        [HttpGet("search")]
+        public async Task<ActionResult<IEnumerable<FoodDto>>> SearchFoods([FromQuery] string q, [FromQuery] int limit = 10)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return Ok(new List<FoodDto>());
+            }
+
+            var query = _context.FoodItems
+                .Include(f => f.Category)
+                .Where(f => f.IsAvailable && 
+                    (f.Name.Contains(q) || 
+                     f.Description.Contains(q) || 
+                     f.Brand.Contains(q) ||
+                     f.Tags.Contains(q) ||
+                     f.Category.Name.Contains(q)))
+                .OrderBy(f => f.Name)
+                .Take(limit);
+
+            var foods = await query.ToListAsync();
+
+            var foodDtos = foods.Select(f => new FoodDto
+            {
+                FoodId = f.FoodId,
+                Name = f.Name,
+                Description = f.Description,
+                MRP = f.MRP,
+                SalePrice = f.SalePrice,
+                CategoryId = f.CategoryId,
+                CategoryName = f.Category.Name,
+                IsAvailable = f.IsAvailable,
+                IsOrganic = f.IsOrganic,
+                StockQuantity = f.StockQuantity,
+                ImageUrl = f.ImageUrl,
+                Brand = f.Brand,
+                Unit = f.Unit,
+                Quantity = f.Quantity,
+                Tags = f.Tags,
+                ViewCount = f.ViewCount,
+                Rating = f.Rating,
+                ReviewCount = f.ReviewCount,
+                IsLowStock = f.StockQuantity <= f.MinStockLevel
+            });
+
+            return Ok(foodDtos);
+        }
+
+        // GET: api/foods/suggestions?q={query}
+        [HttpGet("suggestions")]
+        public async Task<ActionResult<IEnumerable<string>>> GetFoodSuggestions([FromQuery] string q, [FromQuery] int limit = 5)
+        {
+            if (string.IsNullOrWhiteSpace(q))
+            {
+                return Ok(new List<string>());
+            }
+
+            var suggestions = await _context.FoodItems
+                .Where(f => f.IsAvailable && f.Name.Contains(q))
+                .Select(f => f.Name)
+                .Distinct()
+                .OrderBy(name => name)
+                .Take(limit)
+                .ToListAsync();
+
+            return Ok(suggestions);
+        }
     }
 }

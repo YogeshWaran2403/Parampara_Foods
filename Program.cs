@@ -37,6 +37,11 @@ builder.Services.AddAuthentication(options =>
         IssuerSigningKey = new SymmetricSecurityKey(
             Encoding.UTF8.GetBytes(builder.Configuration["Jwt:Key"]!))
     };
+})
+.AddGoogle(options =>
+{
+    options.ClientId = builder.Configuration["Google:ClientId"] ?? "";
+    options.ClientSecret = builder.Configuration["Google:ClientSecret"] ?? "";
 });
 
 // Add CORS
@@ -44,7 +49,7 @@ builder.Services.AddCors(options =>
 {
         options.AddPolicy("AllowFrontend", policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://localhost:4200", "http://localhost:5173") // React/Angular/Vite dev servers
+            policy.WithOrigins("http://localhost:3000", "http://192.168.1.10:3000") // Frontend standard port + mobile access
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials();
@@ -53,6 +58,7 @@ builder.Services.AddCors(options =>
 
 // Add custom services
 builder.Services.AddScoped<DataSeedingService>();
+builder.Services.AddScoped<PhoneAuthService>();
 
 builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
@@ -84,27 +90,50 @@ using (var scope = app.Services.CreateScope())
             }
         }
 
-        // Create admin user
-        var adminUser = await userManager.FindByEmailAsync("admin@paramparafoods.com");
-        if (adminUser == null)
+        // Create test users
+        var testUsers = new[]
         {
-            var admin = new ApplicationUser
-            {
-                UserName = "admin@paramparafoods.com",
-                Email = "admin@paramparafoods.com",
-                FullName = "Admin User",
-                Address = "Parampara Foods Headquarters"
-            };
+            new { Email = "admin@parampara.com", Password = "Admin123!", Role = "Admin", FullName = "Admin User" },
+            new { Email = "user@parampara.com", Password = "User123!", Role = "User", FullName = "Test User" }
+        };
 
-            var result = await userManager.CreateAsync(admin, "Admin@123");
-            if (result.Succeeded)
+        foreach (var userData in testUsers)
+        {
+            var existingUser = await userManager.FindByEmailAsync(userData.Email);
+            if (existingUser == null)
             {
-                await userManager.AddToRoleAsync(admin, "Admin");
+                var user = new ApplicationUser
+                {
+                    UserName = userData.Email,
+                    Email = userData.Email,
+                    FullName = userData.FullName,
+                    Address = "123 Test Street, Test City",
+                    AuthProvider = "local",
+                    CreatedAt = DateTime.UtcNow,
+                    LastLoginAt = DateTime.UtcNow,
+                    EmailConfirmed = true
+                };
+
+                var result = await userManager.CreateAsync(user, userData.Password);
+                if (result.Succeeded)
+                {
+                    await userManager.AddToRoleAsync(user, userData.Role);
+                    Console.WriteLine($"Created {userData.Role} user: {userData.Email}");
+                }
+                else
+                {
+                    Console.WriteLine($"Failed to create user {userData.Email}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                }
+            }
+            else
+            {
+                Console.WriteLine($"User {userData.Email} already exists.");
             }
         }
 
-        // Seed sample data
-        await Parampara_Foods.SeedData.SeedAsync(context);
+        // Seed sample data using DataSeedingService
+        var seedingService = services.GetRequiredService<DataSeedingService>();
+        await seedingService.SeedDataAsync();
         
         // Update sample prices with enhanced pricing system
         await Parampara_Foods.UpdateSamplePrices.UpdateAsync(context);

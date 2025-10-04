@@ -1,4 +1,5 @@
 using Microsoft.EntityFrameworkCore;
+using Microsoft.AspNetCore.Identity;
 using Parampara_Foods.Data;
 using Parampara_Foods.Models;
 
@@ -7,10 +8,14 @@ namespace Parampara_Foods.Services
     public class DataSeedingService
     {
         private readonly ApplicationDbContext _context;
+        private readonly UserManager<ApplicationUser> _userManager;
+        private readonly RoleManager<IdentityRole> _roleManager;
 
-        public DataSeedingService(ApplicationDbContext context)
+        public DataSeedingService(ApplicationDbContext context, UserManager<ApplicationUser> userManager, RoleManager<IdentityRole> roleManager)
         {
             _context = context;
+            _userManager = userManager;
+            _roleManager = roleManager;
         }
 
         public async Task SeedDataAsync()
@@ -24,6 +29,12 @@ namespace Parampara_Foods.Services
 
             Console.WriteLine("Starting database seeding...");
 
+            // Seed Roles
+            await SeedRolesAsync();
+
+            // Seed Users
+            await SeedUsersAsync();
+
             // Seed Categories
             await SeedCategoriesAsync();
             
@@ -31,6 +42,106 @@ namespace Parampara_Foods.Services
             await SeedFoodItemsAsync();
 
             Console.WriteLine("Database seeding completed successfully!");
+        }
+
+        private async Task SeedRolesAsync()
+        {
+            var roles = new List<Role>
+            {
+                new Role
+                {
+                    Name = "Admin",
+                    Description = "Full system access with all administrative privileges",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Role
+                {
+                    Name = "Manager",
+                    Description = "Management access to products, orders, and customer service",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Role
+                {
+                    Name = "Staff",
+                    Description = "Limited access for order processing and customer support",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Role
+                {
+                    Name = "User",
+                    Description = "Standard customer access for shopping and account management",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                },
+                new Role
+                {
+                    Name = "Guest",
+                    Description = "Limited access for browsing without account",
+                    IsActive = true,
+                    CreatedAt = DateTime.UtcNow
+                }
+            };
+
+            _context.Roles.AddRange(roles);
+            await _context.SaveChangesAsync();
+            Console.WriteLine($"Seeded {roles.Count} roles.");
+        }
+
+        private async Task SeedUsersAsync()
+        {
+            // Create Identity roles first
+            var identityRoles = new[] { "Admin", "User" };
+            foreach (var role in identityRoles)
+            {
+                if (!await _roleManager.RoleExistsAsync(role))
+                {
+                    await _roleManager.CreateAsync(new IdentityRole(role));
+                }
+            }
+
+            // Create test users
+            var testUsers = new[]
+            {
+                new { Email = "admin@parampara.com", Password = "Admin123!", Role = "Admin", FullName = "Admin User" },
+                new { Email = "user@parampara.com", Password = "User123!", Role = "User", FullName = "Test User" }
+            };
+
+            foreach (var userData in testUsers)
+            {
+                var existingUser = await _userManager.FindByEmailAsync(userData.Email);
+                if (existingUser == null)
+                {
+                    var user = new ApplicationUser
+                    {
+                        UserName = userData.Email,
+                        Email = userData.Email,
+                        FullName = userData.FullName,
+                        Address = "123 Test Street, Test City",
+                        AuthProvider = "local",
+                        CreatedAt = DateTime.UtcNow,
+                        LastLoginAt = DateTime.UtcNow,
+                        EmailConfirmed = true
+                    };
+
+                    var result = await _userManager.CreateAsync(user, userData.Password);
+                    if (result.Succeeded)
+                    {
+                        await _userManager.AddToRoleAsync(user, userData.Role);
+                        Console.WriteLine($"Created {userData.Role} user: {userData.Email}");
+                    }
+                    else
+                    {
+                        Console.WriteLine($"Failed to create user {userData.Email}: {string.Join(", ", result.Errors.Select(e => e.Description))}");
+                    }
+                }
+                else
+                {
+                    Console.WriteLine($"User {userData.Email} already exists.");
+                }
+            }
         }
 
         private async Task SeedCategoriesAsync()
