@@ -15,3 +15,4 @@ echo (This will automatically seed the database with fresh data)
 dotnet run --urls "http://localhost:5000"
 
 pause
+

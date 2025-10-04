@@ -12,6 +12,7 @@ namespace Parampara_Foods.Data
         }
 
         // DbSets for our models
+        public new DbSet<Role> Roles { get; set; }
         public DbSet<FoodCategory> Categories { get; set; }
         public DbSet<FoodItem> FoodItems { get; set; }
         public DbSet<Order> Orders { get; set; }
@@ -25,6 +26,12 @@ namespace Parampara_Foods.Data
             base.OnModelCreating(builder);
 
             // Configure relationships
+            builder.Entity<ApplicationUser>()
+                .HasOne(u => u.Role)
+                .WithMany(r => r.Users)
+                .HasForeignKey(u => u.RoleId)
+                .OnDelete(DeleteBehavior.SetNull);
+
             builder.Entity<FoodItem>()
                 .HasOne(f => f.Category)
                 .WithMany(c => c.FoodItems)
@@ -66,6 +73,7 @@ namespace Parampara_Foods.Data
                 .WithMany()
                 .HasForeignKey(b => b.AuthorId)
                 .OnDelete(DeleteBehavior.Restrict);
+
         }
     }
 }

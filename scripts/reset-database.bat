@@ -14,3 +14,4 @@ echo Database reset completed!
 echo The application will automatically seed data on next startup.
 
 pause
+
