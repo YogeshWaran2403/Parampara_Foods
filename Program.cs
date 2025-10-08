@@ -49,7 +49,11 @@ builder.Services.AddCors(options =>
 {
         options.AddPolicy("AllowFrontend", policy =>
         {
-            policy.WithOrigins("http://localhost:3000", "http://localhost:3001", "http://localhost:3002", "http://192.168.1.10:3000", "http://192.168.29.23:3000", "http://192.168.56.1:3000") // Frontend ports + mobile access
+            policy.SetIsOriginAllowed(origin => 
+                origin.StartsWith("http://localhost:") || 
+                origin.StartsWith("http://192.168.") ||
+                origin.StartsWith("http://10.") ||
+                origin.StartsWith("http://172."))
                   .AllowAnyHeader()
                   .AllowAnyMethod()
                   .AllowCredentials();
@@ -167,4 +171,5 @@ app.UseAuthorization();
 
 app.MapControllers();
 
-app.Run();
+// Configure to run on all interfaces for mobile access
+app.Run("http://0.0.0.0:8080");
