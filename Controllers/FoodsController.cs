@@ -22,6 +22,7 @@ namespace Parampara_Foods.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<FoodDto>>> GetFoods([FromQuery] int? categoryId = null)
         {
+            // First, get the basic food items without images (much faster)
             var query = _context.FoodItems
                 .Include(f => f.Category)
                 .Where(f => f.IsAvailable);
@@ -32,6 +33,20 @@ namespace Parampara_Foods.Controllers
             }
 
             var foods = await query.ToListAsync();
+
+            // Get all food IDs
+            var foodIds = foods.Select(f => f.FoodId).ToList();
+
+            // Get images for all foods in a separate query (more efficient)
+            var images = await _context.FoodImages
+                .Where(img => foodIds.Contains(img.FoodId))
+                .OrderBy(img => img.FoodId)
+                .ThenBy(img => img.DisplayOrder)
+                .ToListAsync();
+
+            // Group images by food ID
+            var imagesByFoodId = images.GroupBy(img => img.FoodId)
+                .ToDictionary(g => g.Key, g => g.ToList());
 
             var foodDtos = foods.Select(f => new FoodDto
             {
@@ -46,6 +61,18 @@ namespace Parampara_Foods.Controllers
                 IsOrganic = f.IsOrganic,
                 StockQuantity = f.StockQuantity,
                 ImageUrl = f.ImageUrl,
+                Images = imagesByFoodId.ContainsKey(f.FoodId) 
+                    ? imagesByFoodId[f.FoodId].Select(img => new FoodImageDto
+                    {
+                        ImageId = img.ImageId,
+                        FoodId = img.FoodId,
+                        ImageUrl = img.ImageUrl,
+                        AltText = img.AltText,
+                        DisplayOrder = img.DisplayOrder,
+                        IsPrimary = img.IsPrimary,
+                        CreatedAt = img.CreatedAt
+                    }).ToList()
+                    : new List<FoodImageDto>(),
                 Brand = f.Brand,
                 Unit = f.Unit,
                 Quantity = f.Quantity,
@@ -63,6 +90,7 @@ namespace Parampara_Foods.Controllers
         [HttpGet("{id}")]
         public async Task<ActionResult<FoodDto>> GetFood(int id)
         {
+            // Get food item without images first (faster)
             var food = await _context.FoodItems
                 .Include(f => f.Category)
                 .FirstOrDefaultAsync(f => f.FoodId == id);
@@ -71,6 +99,12 @@ namespace Parampara_Foods.Controllers
             {
                 return NotFound();
             }
+
+            // Get images separately (more efficient)
+            var images = await _context.FoodImages
+                .Where(img => img.FoodId == id)
+                .OrderBy(img => img.DisplayOrder)
+                .ToListAsync();
 
             // Increment view count
             food.ViewCount++;
@@ -89,6 +123,16 @@ namespace Parampara_Foods.Controllers
                 IsOrganic = food.IsOrganic,
                 StockQuantity = food.StockQuantity,
                 ImageUrl = food.ImageUrl,
+                Images = images.Select(img => new FoodImageDto
+                {
+                    ImageId = img.ImageId,
+                    FoodId = img.FoodId,
+                    ImageUrl = img.ImageUrl,
+                    AltText = img.AltText,
+                    DisplayOrder = img.DisplayOrder,
+                    IsPrimary = img.IsPrimary,
+                    CreatedAt = img.CreatedAt
+                }).ToList(),
                 Brand = food.Brand,
                 Unit = food.Unit,
                 Quantity = food.Quantity,
