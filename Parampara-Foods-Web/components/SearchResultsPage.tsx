@@ -2,7 +2,7 @@ import React from 'react';
 import { useApiCart } from '../contexts/ApiCartContext';
 import { Card, CardContent } from './ui/card';
 import { Button } from './ui/button';
-import { Star } from 'lucide-react';
+import { Star, ShoppingCart } from 'lucide-react';
 
 const SearchResultsPage: React.FC = () => {
   const { searchQuery, searchResults, setPage, viewProduct, addToCart } = useApiCart();
@@ -89,8 +89,13 @@ const SearchResultsPage: React.FC = () => {
                       addToCart(product);
                     }}
                     disabled={!product.isAvailable || product.stockQuantity === 0}
+                    className="bg-gradient-green hover:shadow-lg transform hover:scale-105 transition-all duration-300 rounded-xl font-semibold flex items-center gap-2"
                   >
-                    {product.isAvailable && product.stockQuantity > 0 ? 'Add to Cart' : 'Out of Stock'}
+                    {/* Mobile: Show only icon, Desktop: Show icon + text */}
+                    <ShoppingCart className="h-4 w-4 text-white" />
+                    <span className="hidden sm:inline text-white">
+                      {product.isAvailable && product.stockQuantity > 0 ? 'Add to Cart' : 'Out of Stock'}
+                    </span>
                   </Button>
                 </div>
               </CardContent>

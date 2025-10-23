@@ -149,7 +149,7 @@ const ProductCard: React.FC<ProductCardProps> = ({ product }) => {
               className="bg-gradient-green hover:shadow-lg text-white font-semibold py-1.5 sm:py-2 md:py-2.5 px-2 sm:px-3 md:px-5 rounded-md sm:rounded-lg md:rounded-xl transition-all duration-300 flex items-center gap-1 sm:gap-2 transform hover:scale-105 text-xs sm:text-sm"
             >
               <Icon name="cart" className="w-3 h-3 sm:w-4 sm:h-4" />
-              Add
+              <span className="hidden sm:inline">Add to Cart</span>
             </button>
           ) : (
             <div className="flex items-center gap-1 sm:gap-2 bg-green-50 rounded-md sm:rounded-lg md:rounded-xl p-1 sm:p-1.5">

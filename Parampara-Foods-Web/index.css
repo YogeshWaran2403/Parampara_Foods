@@ -4,8 +4,33 @@
 
 /* ===== CORNER STYLING SYSTEM - ROUNDED IMPLEMENTATION ===== */
 
-/* STEP 1: HEADER - SHARP TOP CORNERS, ROUNDED BOTTOM CORNERS */
+/* STEP 1: HEADER - SHARP TOP CORNERS, ROUNDED BOTTOM CORNERS - PERMANENT */
 header {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* PERMANENT HEADER STYLING - NO HOVER CHANGES */
+header:hover {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+header:focus {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+header:active {
   border-radius: 0 0 1rem 1rem !important;
   border-top-left-radius: 0 !important;
   border-top-right-radius: 0 !important;
@@ -345,6 +370,422 @@ header.rounded-b-2xl {
   border-bottom-left-radius: 1rem !important;
   border-bottom-right-radius: 1rem !important;
 }
+
+/* PERMANENT ROUNDED CORNERS FOR ALL HOME PAGE SECTIONS AFTER VIDEO */
+/* Why Choose Parampara Eats Section */
+section.responsive-spacing.bg-gradient-to-br.from-slate-900,
+section.responsive-spacing.bg-gradient-to-br.from-slate-900 *,
+section.responsive-spacing.bg-gradient-to-br.from-slate-900 > *,
+section.responsive-spacing.bg-gradient-to-br.from-slate-900 > * > * {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* Categories Section */
+section.responsive-spacing.bg-gradient-to-br.from-indigo-50,
+section.responsive-spacing.bg-gradient-to-br.from-indigo-50 *,
+section.responsive-spacing.bg-gradient-to-br.from-indigo-50 > *,
+section.responsive-spacing.bg-gradient-to-br.from-indigo-50 > * > * {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* Featured Products Section */
+section.responsive-spacing.bg-gradient-to-br.from-slate-50,
+section.responsive-spacing.bg-gradient-to-br.from-slate-50 *,
+section.responsive-spacing.bg-gradient-to-br.from-slate-50 > *,
+section.responsive-spacing.bg-gradient-to-br.from-slate-50 > * > * {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* Health Journey Card Section */
+section.responsive-spacing.bg-gradient-to-br.from-slate-50.via-gray-50,
+section.responsive-spacing.bg-gradient-to-br.from-slate-50.via-gray-50 *,
+section.responsive-spacing.bg-gradient-to-br.from-slate-50.via-gray-50 > *,
+section.responsive-spacing.bg-gradient-to-br.from-slate-50.via-gray-50 > * > * {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* Force rounded corners on all home page sections after video - ULTIMATE OVERRIDE */
+section:not(.responsive-video-container):not(.hero-section) {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+section:not(.responsive-video-container):not(.hero-section) * {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* HOVER STATES - MAINTAIN ROUNDED CORNERS */
+section:not(.responsive-video-container):not(.hero-section):hover,
+section:not(.responsive-video-container):not(.hero-section):hover *,
+section:not(.responsive-video-container):not(.hero-section) *:hover {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* FOCUS STATES - MAINTAIN ROUNDED CORNERS */
+section:not(.responsive-video-container):not(.hero-section):focus,
+section:not(.responsive-video-container):not(.hero-section):focus *,
+section:not(.responsive-video-container):not(.hero-section) *:focus {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* ACTIVE STATES - MAINTAIN ROUNDED CORNERS */
+section:not(.responsive-video-container):not(.hero-section):active,
+section:not(.responsive-video-container):not(.hero-section):active *,
+section:not(.responsive-video-container):not(.hero-section) *:active {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* OVERRIDE ANY INLINE STYLES */
+section:not(.responsive-video-container):not(.hero-section)[style*="border-radius"],
+section:not(.responsive-video-container):not(.hero-section)[style*="borderRadius"],
+section:not(.responsive-video-container):not(.hero-section) *[style*="border-radius"],
+section:not(.responsive-video-container):not(.hero-section) *[style*="borderRadius"] {
+  border-radius: 1.5rem !important;
+  border-top-left-radius: 1.5rem !important;
+  border-top-right-radius: 1.5rem !important;
+  border-bottom-left-radius: 1.5rem !important;
+  border-bottom-right-radius: 1.5rem !important;
+}
+
+/* ULTIMATE HEADER OVERRIDE - PERMANENT STRAIGHT TOP, ROUNDED BOTTOM */
+header,
+header:hover,
+header:focus,
+header:active,
+header.rounded-b-2xl,
+header.rounded-b-2xl:hover,
+header.rounded-b-2xl:focus,
+header.rounded-b-2xl:active,
+header[style*="border-radius"],
+header[style*="borderRadius"],
+header.header-sharp-top,
+header.header-sharp-top:hover,
+header.header-sharp-top:focus,
+header.header-sharp-top:active {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* NUCLEAR OPTION - FORCE HEADER SHARP TOP CORNERS */
+header,
+header *,
+header > *,
+header > * > *,
+header > * > * > * {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+/* FORCE ROUNDED BOTTOM CORNERS ONLY */
+header {
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* OVERRIDE ALL TAILWIND CLASSES ON HEADER */
+header[class*="rounded"],
+header[class*="border-radius"] {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* FORCE SHARP TOP CORNERS - OVERRIDE ANY ROUNDED CLASSES */
+header.rounded-t-none,
+header.rounded-t-0,
+header.rounded-t-sm,
+header.rounded-t,
+header.rounded-t-md,
+header.rounded-t-lg,
+header.rounded-t-xl,
+header.rounded-t-2xl,
+header.rounded-t-3xl,
+header.rounded-t-full {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+/* FORCE ROUNDED BOTTOM CORNERS - OVERRIDE ANY SHARP CLASSES */
+header.rounded-b-none,
+header.rounded-b-0,
+header.rounded-b-sm,
+header.rounded-b,
+header.rounded-b-md,
+header.rounded-b-lg,
+header.rounded-b-xl,
+header.rounded-b-2xl,
+header.rounded-b-3xl,
+header.rounded-b-full {
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* FINAL NUCLEAR OVERRIDE - MAXIMUM SPECIFICITY */
+html body div header,
+html body div header:hover,
+html body div header:focus,
+html body div header:active,
+html body div header[class*="rounded"],
+html body div header[style*="border-radius"] {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* ULTIMATE HEADER CORNER ENFORCEMENT */
+header.header-sharp-top,
+header.header-sharp-top:hover,
+header.header-sharp-top:focus,
+header.header-sharp-top:active,
+header.header-sharp-top[class*="rounded"],
+header.header-sharp-top[style*="border-radius"],
+header.header-sharp-top[style*="borderRadius"] {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* FORCE HEADER SHAPE PERMANENTLY */
+header {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* NUCLEAR HEADER OVERRIDE - FORCE SHARP TOP CORNERS */
+header,
+header *,
+header > *,
+header > * > *,
+header > * > * > *,
+header[class*="rounded"],
+header[class*="border-radius"],
+header[style*="border-radius"],
+header[style*="borderRadius"],
+header.header-sharp-top,
+header.header-sharp-top *,
+header.header-sharp-top > *,
+header.header-sharp-top > * > *,
+header.header-sharp-top > * > * > * {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+}
+
+/* FORCE ROUNDED BOTTOM CORNERS */
+header,
+header.header-sharp-top {
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* ABSOLUTE NUCLEAR OVERRIDE - MAXIMUM SPECIFICITY */
+html body div#root header,
+html body div#root header:hover,
+html body div#root header:focus,
+html body div#root header:active,
+html body div#root header[class*="rounded"],
+html body div#root header[style*="border-radius"],
+html body div#root header.header-sharp-top,
+html body div#root header.header-sharp-top:hover,
+html body div#root header.header-sharp-top:focus,
+html body div#root header.header-sharp-top:active {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* FINAL ULTIMATE OVERRIDE - TARGET EXACT HEADER */
+header.sticky.top-0.z-50.bg-white\/95.backdrop-blur-md.border-b.border-gray-200.shadow-lg.header-sharp-top.rounded-b-2xl,
+header.sticky.top-0.z-50.bg-white\/95.backdrop-blur-md.border-b.border-gray-200.shadow-lg.header-sharp-top.rounded-b-2xl:hover,
+header.sticky.top-0.z-50.bg-white\/95.backdrop-blur-md.border-b.border-gray-200.shadow-lg.header-sharp-top.rounded-b-2xl:focus,
+header.sticky.top-0.z-50.bg-white\/95.backdrop-blur-md.border-b.border-gray-200.shadow-lg.header-sharp-top.rounded-b-2xl:active {
+  border-radius: 0 0 1rem 1rem !important;
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+}
+
+/* FORCE ALL HEADER ELEMENTS TO HAVE SHARP TOP */
+header,
+header[class*="sticky"],
+header[class*="top-0"],
+header[class*="z-50"],
+header[class*="bg-white"],
+header[class*="backdrop-blur"],
+header[class*="border-b"],
+header[class*="shadow-lg"],
+header[class*="header-sharp-top"],
+header[class*="rounded-b-2xl"] {
+  border-top-left-radius: 0 !important;
+  border-top-right-radius: 0 !important;
+  border-bottom-left-radius: 1rem !important;
+  border-bottom-right-radius: 1rem !important;
+  border-radius: 0 0 1rem 1rem !important;
+}
+
+/* PERFECTLY ROUND LOGO BUTTONS */
+.logo-button,
+.logo-button:hover,
+.logo-button:focus,
+.logo-button:active,
+div[class*="rounded-full"][class*="bg-gradient-to-br"] {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+}
+
+/* ENSURE LOGO BUTTONS ARE PERFECTLY CIRCULAR */
+div[class*="w-24"][class*="h-24"],
+div[class*="w-32"][class*="h-32"],
+div[class*="w-40"][class*="h-40"],
+div[class*="w-10"][class*="h-10"],
+div[class*="w-12"][class*="h-12"],
+div[class*="w-16"][class*="h-16"] {
+  border-radius: 50% !important;
+  aspect-ratio: 1 / 1 !important;
+}
+
+/* MOBILE CATEGORY CARDS - WIDER LAYOUT */
+@media (max-width: 768px) {
+  .grid.grid-cols-1 {
+    max-width: 100% !important;
+    width: 100% !important;
+  }
+  
+  .grid.grid-cols-1 > div {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+  
+  /* Make category cards wider in mobile */
+  .grid.grid-cols-1 .group {
+    width: 100% !important;
+    max-width: 100% !important;
+  }
+}
+
+/* MOBILE VIDEO BLACK BOX FIX */
+@media (max-width: 768px) {
+  .responsive-video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+  }
+  
+  .responsive-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.2);
+    z-index: 1;
+  }
+  
+  /* Ensure video covers entire area without gaps */
+  .responsive-video-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 0;
+  }
+}
+
+/* ULTIMATE MOBILE VIDEO BLACK BOX FIX */
+@media (max-width: 1024px) {
+  .responsive-video-container {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    overflow: hidden;
+    background: #000;
+  }
+  
+  .responsive-video {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    min-width: 100%;
+    min-height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transform: scale(1.15);
+    z-index: 1;
+  }
+  
+  /* Fallback background to prevent any black areas */
+  .responsive-video-container::before {
+    content: '';
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: #000;
+    z-index: 0;
+  }
+}
+
 /* Allow buttons and interactive elements in header to have rounded corners */
 header button,
 header [role="button"],
@@ -2808,6 +3249,10 @@ header.rounded-b-2xl {
     width: 100%;
     height: 100%;
     object-fit: cover;
+    object-position: center;
+    min-width: 100%;
+    min-height: 100%;
+    transform: scale(1.1);
   }
 
 /* Specific override for header with sharp top corners and rounded bottom corners */
@@ -2831,6 +3276,7 @@ header.rounded-b-2xl {
     object-position: center;
     min-width: 100%;
     min-height: 100%;
+    transform: scale(1.1);
   }
 
 /* Specific override for header with sharp top corners and rounded bottom corners */
@@ -3253,6 +3699,20 @@ header.rounded-b-2xl {
   @media (max-width: 640px) {
     .responsive-video-container {
       height: 100vh;
+      overflow: hidden;
+    }
+    
+    .responsive-video {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      min-width: 100%;
+      min-height: 100%;
+      object-fit: cover;
+      object-position: center;
+      transform: scale(1.2);
     }
   }
 

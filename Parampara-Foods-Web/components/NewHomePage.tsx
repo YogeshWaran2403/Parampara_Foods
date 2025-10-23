@@ -1,4 +1,4 @@
-import { ArrowRight, Leaf, Truck, Shield, Star } from 'lucide-react';
+import { ArrowRight, Leaf, Truck, Shield, Star, ShoppingCart } from 'lucide-react';
 import { useCart } from '../contexts/CartContext';
 import { Button } from './ui/button';
 import { Card, CardContent } from './ui/card';
@@ -175,15 +175,18 @@ const HomePage = () => {
                     <span className="text-lg font-bold text-primary">
                       ${product.price.toFixed(2)}
                     </span>
-                    <Button
-                      size="sm"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        addToCart(product);
-                      }}
-                    >
-                      Add to Cart
-                    </Button>
+                     <Button
+                       size="sm"
+                       onClick={(e) => {
+                         e.stopPropagation();
+                         addToCart(product);
+                       }}
+                       className="bg-gradient-green hover:shadow-lg transform hover:scale-105 transition-all duration-300 rounded-xl font-semibold flex items-center gap-2"
+                     >
+                       {/* Mobile: Show only icon, Desktop: Show icon + text */}
+                       <ShoppingCart className="h-4 w-4 text-white" />
+                       <span className="hidden sm:inline text-white">Add to Cart</span>
+                     </Button>
                   </div>
                 </CardContent>
               </Card>

@@ -31,7 +31,16 @@ const Header = () => {
 
 
   return (
-    <header className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg header-sharp-top">
+    <header 
+      className="sticky top-0 z-50 bg-white/95 backdrop-blur-md border-b border-gray-200 shadow-lg header-sharp-top rounded-b-2xl"
+      style={{
+        borderTopLeftRadius: '0px !important',
+        borderTopRightRadius: '0px !important',
+        borderBottomLeftRadius: '1rem !important',
+        borderBottomRightRadius: '1rem !important',
+        borderRadius: '0 0 1rem 1rem !important'
+      }}
+    >
       <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
         {/* Mobile Layout */}
         <div className="flex items-center justify-between h-16 lg:hidden">
